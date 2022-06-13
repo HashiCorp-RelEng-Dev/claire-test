@@ -14,4 +14,4 @@ jobs:
     # Map the job outputs to step outputs
     steps:
       - id: step1
-        run: echo "${{ github.event }}"
+        run: echo "${{toJSON(github.event)}}"
