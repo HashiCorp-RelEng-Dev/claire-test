@@ -5,5 +5,5 @@ on:
 
 jobs:
   job1:
-    uses: .github/workflows/workflow-call.yml
+    uses: ./.github/workflows/workflow-call.yml
 
