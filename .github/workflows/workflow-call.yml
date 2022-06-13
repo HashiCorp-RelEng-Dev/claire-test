@@ -1,7 +1,9 @@
 name: Reusable workflow
 
 on:
-  workflow_call
+  - workflow_call
+  - repository_dispatch
+    
 
 jobs:
   example_job:
