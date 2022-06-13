@@ -2,6 +2,9 @@ name: Workflow Run
 
 on:
   workflow_run:
+    workflows:
+      - "Workflow Dispatch"
+      - "Reusable workflow"
     types: [completed]
 
 jobs:
