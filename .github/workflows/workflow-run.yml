@@ -1,0 +1,14 @@
+name: Workflow Run
+
+on:
+  workflow_run:
+    types: [completed]
+
+jobs:
+  example_job:
+    name: Shows if emit events
+    runs-on: ubuntu-latest
+    # Map the job outputs to step outputs
+    steps:
+      - id: step1
+        run: echo "${{ github.event }}"
