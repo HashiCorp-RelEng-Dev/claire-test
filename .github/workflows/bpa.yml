@@ -1,0 +1,19 @@
+name: Backport Assistant Runner
+
+on:
+  pull_request:
+    types:
+      - closed
+      - labeled
+
+jobs:
+  backport:
+    if: github.event.pull_request.merged
+    runs-on: ubuntu-latest
+    container: hashicorpdev/backport-assistant:0.3.5
+    steps:
+      - name: print event
+        env:
+          EVENT: ${{ toJson(github.event) }}
+        run: |
+          echo "$EVENT"
