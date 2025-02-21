@@ -1,0 +1,33 @@
+
+name: Add Team to Repo on Issue Opened
+
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  add_team_to_repo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Get issue body
+        id: issue_info
+        run: |
+          ISSUE_BODY=$(jq -r .issue.body $GITHUB_EVENT_PATH)
+          echo "Issue Body: $ISSUE_BODY"
+          echo "team_name=$(echo $ISSUE_BODY | grep -oP '(?<=Team Name: ).*')" >> $GITHUB_ENV
+
+      - name: Add team with write access to the repo
+        if: env.team_name != ''
+        run: |
+          curl -X PUT -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          -d '{"permission": "push"}' \
+          "https://api.github.com/orgs/${{ github.repository_owner }}/teams/$TEAM_NAME/repos/${{ github.repository_owner }}/${{ github.repository }}"
+
+        env:
+          TEAM_NAME: ${{ env.team_name }}
