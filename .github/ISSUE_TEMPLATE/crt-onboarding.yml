@@ -2,14 +2,14 @@ name: CRT Onboarding
 description: Submit an onboarding request
 body:
   - type: input
-    id: repository name
+    id: "repository_name"
     attributes:
       label: Repository Name
       description: What is the name of the repository that you would like to onboard?
     validations:
       required: true
   - type: input
-    id: repository link
+    id: "repository_link"
     attributes:
       label: Link to Repository
       description: Link/URL to Repository
@@ -17,7 +17,7 @@ body:
       required: true
 
   - type: dropdown
-    id: Repository Type
+    id: "repo_type"
     attributes:
       label: What type of repository is this? (Community Edition, Internal, or Enterprise?)
       multiple: false
@@ -29,7 +29,7 @@ body:
     validations:
       required: true
   - type: textarea
-    id: Release Approvers
+    id: "release_approvers"
     attributes:
      label: Description
      description: Please include the github usernames that you would like to have added as release approvers
@@ -39,15 +39,14 @@ body:
     attributes:
       value: |
         ---
-  - type: tasklist
+  - type: checkboxes
     id: link
     attributes:
-     label: What do you plan to release? Go Biniaries, Docker Images, Redhat? 
+     label: What do you plan to release? Go Binaries, Docker Images, Redhat? 
      description: Please tick all the types of artifacts
-     - [ ] Go Binaries
-     - [ ] Docker Images
-     - [ ] RedHat Images
-     - [ ] Linux Packages
-    validations:
-      required: true
+     options:
+      - label: Go Binaries
+      - label: Docker Images
+      - label: RedHat Images
+      - label: Linux Packages
 
