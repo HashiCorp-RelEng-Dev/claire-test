@@ -13,7 +13,10 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
-
+      - name: Print full event data
+        run: |
+          cat $GITHUB_EVENT_PATH
+    
       - name: Extract team_name from issue inputs
         id: extract_team_name
         run: |
