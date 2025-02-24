@@ -13,12 +13,17 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
-
+      
       - name: Get issue body
         id: issue_info
         run: |
+          # Extract the issue body
           ISSUE_BODY=$(jq -r .issue.body $GITHUB_EVENT_PATH)
-          echo "Issue Body: $ISSUE_BODY"
+
+          # Print the raw issue body to help with debugging
+          echo "Raw Issue Body: $ISSUE_BODY"
+          
+          # Extract the team name using a more robust regex
           echo "team_name=$(echo $ISSUE_BODY | grep -oP '(?<=Team Name:\s*).+')" >> $GITHUB_ENV
 
       - name: Debug team name
