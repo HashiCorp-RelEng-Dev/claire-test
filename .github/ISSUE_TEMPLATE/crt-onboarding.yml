@@ -7,6 +7,14 @@ body:
         # CRT Onboarding Request
         Please fill out the following information to request onboarding for a new repository. As part of this effort, we will need to give Team Name: team-rel-eng-test write access to the repository. 
   - type: input
+    id: "team_name"
+    attributes:
+      label: Team Name
+      description: What is the name of the team name that you would like to onboard?
+    validations:
+      required: true
+
+  - type: input
     id: "repository_name"
     attributes:
       label: Repository Name
