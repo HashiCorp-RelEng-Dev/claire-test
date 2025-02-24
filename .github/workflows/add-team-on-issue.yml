@@ -22,7 +22,7 @@ jobs:
 
       - name: Debug team name
         run: |
-          echo "Team name extracted: ${{ env.team_name }}"
+            echo "Team name extracted: ${{ env.team_name }}"
 
       - name: Add team with write access to the repo
         if: ${{ env.team_name != '' }}
