@@ -13,16 +13,19 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
-      - name: Print full event data
-        run: |
-          cat $GITHUB_EVENT_PATH
-    
-      - name: Extract team_name from issue inputs
+
+      - name: Extract team_name from issue body
         id: extract_team_name
         run: |
-          # Extract the team_name input from the issue payload
-          TEAM_NAME=$(jq -r .issue.fields.team_name $GITHUB_EVENT_PATH)
+          # Extract the issue body
+          ISSUE_BODY=$(jq -r .issue.body $GITHUB_EVENT_PATH)
           
+          # Print raw issue body to debug
+          echo "Raw Issue Body: $ISSUE_BODY"
+          
+          # Use a regex to extract the team name after "### Team Name" in the body
+          TEAM_NAME=$(echo "$ISSUE_BODY" | grep -oP '(?<=### Team Name\n\n).+' | head -n 1)
+
           # Debug output for the extracted team_name
           echo "Extracted team name: $TEAM_NAME"
 
