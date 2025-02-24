@@ -1,4 +1,3 @@
-
 name: Add Team to Repo on Issue Opened
 
 on:
@@ -21,13 +20,16 @@ jobs:
           echo "Issue Body: $ISSUE_BODY"
           echo "team_name=$(echo $ISSUE_BODY | grep -oP '(?<=Team Name: ).*')" >> $GITHUB_ENV
 
+      - name: Debug team name
+        run: |
+          echo "Team name extracted: ${{ env.team_name }}"
+
       - name: Add team with write access to the repo
-        if: env.team_name != ''
+        if: ${{ env.team_name != '' }}
         run: |
           curl -X PUT -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
           -H "Accept: application/vnd.github.v3+json" \
           -d '{"permission": "push"}' \
           "https://api.github.com/orgs/${{ github.repository_owner }}/teams/$TEAM_NAME/repos/${{ github.repository_owner }}/${{ github.repository }}"
-
         env:
           TEAM_NAME: ${{ env.team_name }}

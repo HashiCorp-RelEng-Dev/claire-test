@@ -39,6 +39,9 @@ body:
     attributes:
       value: |
         ---
+
+  # Add a step here asking if they have a release approvers team already. If yes, skip if no, proceed with next box
+  # Release Approvers name
   - type: checkboxes
     id: link
     attributes:
@@ -50,3 +53,13 @@ body:
       - label: RedHat Images
       - label: Linux Packages
 
+# TODO [CRT Onboarding Steps]: 
+# Add repository name to the crt-orchestrator GitHub App
+# give github-es-release-engineering gh team access to the repository requested
+# Add above team to crt-workflows-common with write perms
+# Create dockerhub repositories  (if they check the docker images)
+# CRT Releases API scopes
+
+
+# Add a note after issue has been created that once an engineer has completed the above steps, they 
+# will tag the creator of the issue and let them know they need to add artifacts to their repository. 
