@@ -24,7 +24,7 @@ jobs:
           echo "Raw Issue Body: $ISSUE_BODY"
           
           # Extract the team name using a more robust regex
-          echo "team_name=$(echo $ISSUE_BODY | grep -oP '(?<=Team Name:\s*).+')" >> $GITHUB_ENV
+          echo "team_name=$(echo $ISSUE_BODY | sed -n 's/.*Team Name:\s*\(.*\)/\1/p')" >> $GITHUB_ENV
 
       - name: Debug team name
         run: |
