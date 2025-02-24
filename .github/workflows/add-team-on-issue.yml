@@ -20,11 +20,11 @@ jobs:
           # Extract the issue body
           ISSUE_BODY=$(jq -r .issue.body $GITHUB_EVENT_PATH)
           
-          # Print raw issue body to debug
+          # Print the raw issue body for debugging
           echo "Raw Issue Body: $ISSUE_BODY"
           
-          # Use a regex to extract the team name after "### Team Name" in the body
-          TEAM_NAME=$(echo "$ISSUE_BODY" | grep -oP '(?<=### Team Name\n\n).+' | head -n 1)
+          # Use sed to extract the team name after "### Team Name"
+          TEAM_NAME=$(echo "$ISSUE_BODY" | sed -n '/### Team Name/,/^$/p' | sed '1d' | sed 's/^[[:space:]]*//')
 
           # Debug output for the extracted team_name
           echo "Extracted team name: $TEAM_NAME"
@@ -45,3 +45,4 @@ jobs:
           "https://api.github.com/orgs/${{ github.repository_owner }}/teams/$TEAM_NAME/repos/${{ github.repository_owner }}/${{ github.repository }}"
         env:
           TEAM_NAME: ${{ env.team_name }}
+
